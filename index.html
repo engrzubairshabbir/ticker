@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Digital Text ScrollingBar 360 Pro | ConsultWays Limited</title>
   <meta name="description" content="Download Smart Digital Text ScrollingBar 360 Pro for Windows. High-performance desktop digital marquee, 3D ticker, LED integration and broadcast overlay by ConsultWays Limited." />
-  <link rel="icon" type="image/png" href="assets/image001.png" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <meta property="og:image" content="https://ticker.consultways.com/assets/logo.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -249,7 +250,7 @@
   <nav>
     <div class="container nav-inner">
       <a href="#" class="brand">
-        <div class="brand-logo"><img src="assets/image001.png" alt="Logo" /></div>
+        <div class="brand-logo"><img src="assets/icon_360.png" alt="ConsultWays 360 Logo" style="border-radius:8px;" /></div>
         <div class="brand-info">
           <h2>ConsultWays Limited</h2>
           <span>Smart Text Ticker 360 Pro</span>
@@ -313,7 +314,7 @@
 
         <div class="live-ticker-bar" id="liveTickerBar">
           <div class="ticker-logo-box">
-            <img src="assets/image001.png" alt="Ticker Logo" id="simLogo" />
+            <img src="assets/icon_360.png" alt="Ticker Logo" id="simLogo" style="filter: drop-shadow(0 0 8px rgba(16,185,129,0.6));" />
           </div>
           <div class="ticker-track">
             <div class="ticker-content" id="simTickerText">
@@ -452,7 +453,7 @@
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Hardware Signature Binding</li>
             </ul>
           </div>
-          <a href="downloads/DigitalScrollingBar360Pro_3D.zip" download="DigitalScrollingBar360Pro_3D.zip" class="btn btn-secondary btn-lg" style="width: 100%;">Download Free Trial</a>
+          <a href="downloads/DigitalScrollingBar360Pro_3D.zip" download="DigitalScrollingBar360Pro_3D.zip" class="btn btn-secondary btn-lg" style="width: 100%;" onclick="trackDownload('Pricing Card Button')">Download Free Trial</a>
         </div>
 
         <div class="pricing-card featured">
@@ -519,7 +520,7 @@
         <h2>Ready to Elevate Your Announcements?</h2>
         <p>Join businesses, broadcast studios, churches, and trading floors using Smart Digital Text ScrollingBar 360 Pro daily.</p>
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-          <a href="downloads/DigitalScrollingBar360Pro_3D.zip" download="DigitalScrollingBar360Pro_3D.zip" class="btn btn-primary btn-lg">
+          <a href="downloads/DigitalScrollingBar360Pro_3D.zip" download="DigitalScrollingBar360Pro_3D.zip" class="btn btn-primary btn-lg" onclick="trackDownload('Bottom CTA Button')">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Download Free Trial Now
           </a>
@@ -553,6 +554,7 @@
           <h4>Legal &amp; Licensing</h4>
           <ul class="footer-links">
             <li><a href="payment-success.html">Payment Confirmation</a></li>
+            <li><a href="analytics.html" target="_blank" style="color:#10b981; font-weight:600;">📊 Live Download Analytics</a></li>
             <li><a href="https://buy.polar.sh/polar_cl_mZJBJUvHSCO3aZ3GjZsW67l59ZCgYK7SDTCgS3vYlPd" target="_blank">Polar Merchant Checkout</a></li>
           </ul>
         </div>
@@ -598,5 +600,64 @@
       if (!isActive) item.classList.add('active');
     }
   </script>
+
+  <script>
+    // Universal Download Tracking Engine
+    const DOWNLOAD_TRACKING_ENDPOINT = localStorage.getItem("cw_tracking_webhook") || "https://api.counterapi.dev/v1/consultways-ticker/downloads/up";
+
+    function trackDownload(btnLocation) {
+      const now = new Date();
+      const dateStr = now.toISOString().split("T")[0]; // YYYY-MM-DD
+      const timeStr = now.toLocaleTimeString();
+
+      // 1. Record event in local device historical log
+      try {
+        let history = JSON.parse(localStorage.getItem("cw_download_history") || "[]");
+        history.unshift({
+          date: dateStr,
+          time: timeStr,
+          timestamp: now.toISOString(),
+          button: btnLocation,
+          url: window.location.href,
+          referrer: document.referrer || "Direct"
+        });
+        localStorage.setItem("cw_download_history", JSON.stringify(history.slice(0, 500)));
+      } catch(e) {}
+
+      // 2. Fire Global Counter & Webhook
+      try {
+        fetch(DOWNLOAD_TRACKING_ENDPOINT, { method: "GET", mode: "no-cors" }).catch(() => {});
+      } catch(e) {}
+
+      // 3. Fire custom webhook if configured (e.g. Google Sheets / Cloudflare)
+      const customWebhook = localStorage.getItem("cw_custom_sheet_webhook");
+      if (customWebhook) {
+        try {
+          fetch(customWebhook, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              event: "software_download",
+              product: "DigitalScrollingBar360Pro",
+              button: btnLocation,
+              date: dateStr,
+              timestamp: now.toISOString(),
+              referrer: document.referrer || "Direct"
+            })
+          }).catch(() => {});
+        } catch(e) {}
+      }
+
+      // 4. Send to Google Analytics 4 if available
+      if (typeof gtag === "function") {
+        gtag("event", "file_download", {
+          file_name: "DigitalScrollingBar360Pro_3D.zip",
+          link_text: btnLocation
+        });
+      }
+    }
+  </script>
+
 </body>
 </html>
