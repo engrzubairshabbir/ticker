@@ -1,0 +1,11 @@
+# Robots.txt for ticker.consultways.com
+# ConsultWays Limited - Smart Digital Text ScrollingBar 360 Pro
+# Target: Windows Desktop Ticker, Digital Signage, LED Controllers, Broadcast Overlay
+
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /downloads/
+
+# Sitemaps
+Sitemap: https://ticker.consultways.com/sitemap.xml

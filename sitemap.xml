@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://ticker.consultways.com/</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ticker.consultways.com/assets/logo.jpg</image:loc>
+      <image:title>Smart Digital Text ScrollingBar 360 Pro</image:title>
+      <image:caption>ConsultWays Limited Desktop Digital Ticker and LED Marquee for Windows</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ticker.consultways.com/assets/icon_360.png</image:loc>
+      <image:title>Digital Scrolling Bar 360 Icon</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/ZvSuXh63O7s/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Digital Scroll Bar 360 3D - Live Desktop Marquee &amp; Network Ticker Demo</video:title>
+      <video:description>Watch Smart Digital Text ScrollingBar 360 Pro in action. Desktop marquee, LED hardware integration, 60 FPS GPU-accelerated scrolling text for Windows 10 and 11.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=ZvSuXh63O7s</video:content_loc>
+      <video:player_loc allow_embed="yes" autoplay="ap=1">https://www.youtube.com/embed/ZvSuXh63O7s</video:player_loc>
+      <video:duration>180</video:duration>
+      <video:publication_date>2026-10-26T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:uploader info="https://www.youtube.com/@zubairshabbir4246">Zubair Shabbir (ConsultWays Limited)</video:uploader>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://ticker.consultways.com/analytics.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ticker.consultways.com/payment-success.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
