@@ -9,9 +9,43 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-dark: #141c26;
+      --bg-gradient: radial-gradient(circle at 50% 20%, rgba(0, 240, 255, 0.12) 0%, transparent 60%), linear-gradient(165deg, #131a24 0%, #1e2838 32%, #2a3a4d 68%, #141c26 100%);
+      --card-bg: rgba(28, 39, 54, 0.85);
+      --card-border: 1px solid rgba(0, 240, 255, 0.35);
+      --card-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0, 240, 255, 0.2);
+      --badge-bg: linear-gradient(135deg, #00f0ff 0%, #00d2e0 100%);
+      --badge-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+      --status-color: #00f0ff;
+      --banner-bg: rgba(0, 240, 255, 0.1);
+      --banner-border: 1px dashed rgba(0, 240, 255, 0.3);
+      --btn-bg: linear-gradient(135deg, #00f0ff 0%, #00d2e0 100%);
+      --btn-text: #061325;
+      --btn-shadow: 0 4px 22px rgba(0, 240, 255, 0.45);
+      --btn-hover-bg: linear-gradient(135deg, #38f9d7 0%, #00f0ff 100%);
+      --link-color: #00f0ff;
+    }
+    [data-theme="classic"] {
+      --bg-dark: #07090e;
+      --bg-gradient: radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 60%);
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-border: 1px solid rgba(16, 185, 129, 0.3);
+      --card-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(16, 185, 129, 0.2);
+      --badge-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --badge-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+      --status-color: #34d399;
+      --banner-bg: rgba(16, 185, 129, 0.1);
+      --banner-border: 1px dashed rgba(16, 185, 129, 0.3);
+      --btn-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --btn-text: #ffffff;
+      --btn-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+      --btn-hover-bg: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      --link-color: #34d399;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #07090e;
+      background: var(--bg-dark);
       color: #f8fafc;
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
@@ -19,25 +53,26 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-      background-image: 
-        radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 60%);
+      background-image: var(--bg-gradient);
+      transition: all 0.3s ease;
     }
     .card {
-      background: rgba(18, 24, 38, 0.85);
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      background: var(--card-bg);
+      border: var(--card-border);
       border-radius: 24px;
       padding: 48px 36px;
       max-width: 520px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(16, 185, 129, 0.2);
+      box-shadow: var(--card-shadow);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
     .badge-icon {
       width: 72px; height: 72px; border-radius: 50%;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      background: var(--badge-bg);
       display: inline-flex; align-items: center; justify-content: center;
-      margin-bottom: 24px; box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+      margin-bottom: 24px; box-shadow: var(--badge-shadow);
       animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -51,21 +86,21 @@
     .info-row { display: flex; justify-content: space-between; font-size: 14px; padding: 6px 0; }
     .info-lbl { color: #64748b; font-weight: 500; }
     .info-val { color: #f8fafc; font-weight: 600; }
-    .status-active { color: #34d399; font-weight: 700; }
+    .status-active { color: var(--status-color); font-weight: 700; }
     .banner {
-      background: rgba(16, 185, 129, 0.1); border: 1px dashed rgba(16, 185, 129, 0.3);
+      background: var(--banner-bg); border: var(--banner-border);
       border-radius: 10px; padding: 14px; font-size: 13.5px; color: #cbd5e1; margin-bottom: 24px;
     }
     .btn-return {
       display: inline-block; width: 100%;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #ffffff; text-decoration: none; padding: 16px; border-radius: 12px;
-      font-size: 16px; font-weight: 700; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+      background: var(--btn-bg);
+      color: var(--btn-text); text-decoration: none; padding: 16px; border-radius: 12px;
+      font-size: 16px; font-weight: 700; box-shadow: var(--btn-shadow);
       transition: all 0.2s; cursor: pointer; border: none;
     }
-    .btn-return:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(16, 185, 129, 0.6); }
+    .btn-return:hover { transform: translateY(-2px); background: var(--btn-hover-bg); }
     .footer-help { margin-top: 24px; font-size: 13px; color: #64748b; }
-    .footer-help a { color: #34d399; text-decoration: none; }
+    .footer-help a { color: var(--link-color); text-decoration: none; }
   </style>
 </head>
 <body>
